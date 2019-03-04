@@ -14,24 +14,21 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success btn-block">New Project
-                <i class="mdi mdi-plus"></i>
-              </button>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('Dashboard')}}">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+          @can('adminonly')
           <li class="nav-item">
             <a class="nav-link" href="{{route('CityList')}}" >
               <i class="menu-icon mdi mdi-content-copy"></i>
               <span class="menu-title">Cities</span>
               <i class="menu-arrow"></i>
             </a>
-         
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('DivisionList')}}">
@@ -39,6 +36,19 @@
               <span class="menu-title">Divisions</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('SubDivisionList')}}">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Sub Divisions</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('ManageUsers')}}">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Manage Users</span>
+            </a>
+          </li>
+          @endcan
           <li class="nav-item">
             <a class="nav-link"  data-toggle="collapse" href="#complaintdropdown" aria-expanded="false" aria-controls="complaintdropdown">
               <i class="menu-icon mdi mdi-chart-line"></i>
@@ -49,28 +59,18 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('ComplaintList')}}"> Complaints</a>
                 </li>
+                @can('adminonly')
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('ComplaintListOpen')}}"> Open Complaints </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('ComplaintListOpenDivision')}}"> Open Division Complaints </a>
                 </li>
+                @endcan
             </ul>
           </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('SubDivisionList')}}">
-              <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Sub Divisions</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/font-awesome.html">
-              <i class="menu-icon mdi mdi-sticker"></i>
-              <span class="menu-title">Icons</span>
-            </a>
-          </li>
-          <li class="nav-item">
+     {{--      <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="menu-icon mdi mdi-restart"></i>
               <span class="menu-title">User Pages</span>
@@ -81,20 +81,8 @@
                 <li class="nav-item">
                   <a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../../pages/samples/login.html"> Login </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../../pages/samples/register.html"> Register </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a>
-                </li>
               </ul>
             </div>
-          </li>
+          </li> --}}
         </ul>
       </nav>
