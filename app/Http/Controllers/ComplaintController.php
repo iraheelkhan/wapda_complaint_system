@@ -19,14 +19,13 @@ use Carbon\Carbon;
 class ComplaintController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth')->except('index', 'showByIdAPI', 'store_complaintAPI');
         //$this->middleware('auth')->except('list');
     }
 
     //api code goes here 
     public function index(){
         $complaint = Complaint::all();
-
         return ComplaintResource::collection($complaint);
     }
     
@@ -34,7 +33,7 @@ class ComplaintController extends Controller
     {   $solved = Complaint::where('status', 'solve')->get()->count();
         $opened = Complaint::where('status', 'open')->get()->count();
         $total = Complaint::all()->count();
-        $today = Complaint::where('created_at', Carbon::today())->count();
+        $today = Complaint::whereDay('created_at', date('d'))->count();
         return view('dashboard.dashboard')->with('solve', $solved)->with('open', $opened)->with('total', $total)->with('today', $today);
     }
     public function list(){
@@ -90,7 +89,7 @@ class ComplaintController extends Controller
         $complaint->division_id = $request->c_division;
         $complaint->subdivision_id = $request->c_subdivision;
         $complaint->c_reference_no = 2535;
-        $complaint->c_tracking_no = strtolower($request->c_tracking_no);
+        $complaint->c_tracking_no = strtoupper($request->c_tracking_no);
         $complaint->save();
         Session::flash('message', 'Data Successfull Inserted!<script>swal("Complaint Registered", "Thank You for making Wapda a better place.", "success");</script>'); 
         return redirect('complaint');
@@ -151,4 +150,41 @@ class ComplaintController extends Controller
     }
 
 
+
+
+
+    // Complaints 
+    public function showByIdAPI($id){
+        $data['data'] = Complaint::where('c_tracking_no', $id)->get();
+        return response()->json($data);
+    }
+    public function store_complaintAPI(Request $request){
+        $complaint = new Complaint;
+        $validatedData = $request->validate([
+        'complaint_title' => 'required|max:50|min:15',
+        'complaint_description' => '|max:320|min:50',
+        'c_email' => '',
+        'c_phone' => '',
+        'c_address' => '',
+        'c_division' => '',
+        'c_customer_id' => '',
+        'c_tracking_no' => 'min:8|unique:complaints',
+        'c_subdivision' => ''
+        ]);
+
+        $complaint->c_title = $request->complaint_title;
+        $complaint->c_description = $request->complaint_description;
+        $complaint->c_email = $request->c_email;
+        $complaint->c_address = $request->c_address;
+        $complaint->c_phone = $request->c_phone;
+        $complaint->user_id = $request->c_customer_id;
+        $complaint->status = "open";
+        $complaint->division_id = $request->c_division;
+        $complaint->subdivision_id = $request->c_subdivision;
+        $complaint->c_reference_no = 2535;
+        $complaint->c_tracking_no = strtoupper($request->c_tracking_no);
+        //$complaint->save();
+         
+        return response()->json("success");
+    }
 }
