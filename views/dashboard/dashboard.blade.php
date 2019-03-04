@@ -3,10 +3,12 @@
 Complaint List
 @endsection
 @section('content')
+@can('adminonly')
       <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
+                    {{today()}}
                     <div id="container" style="min-width: 210px; height: 400px; margin: 0 auto"></div>
                     <table id="datatable" style="display: none">
                         <thead>
@@ -27,11 +29,11 @@ Complaint List
                             </tr>
                             <tr>
                                 <th>Open</th>
-                                <td>{{$solve}}</td>
+                                <td>{{$open}}</td>
                             </tr>
                             <tr>
                                 <th>Solved</th>
-                                <td>{{$open}}</td>
+                                <td>{{$solve}}</td>
                             </tr>
                             
                         </tbody>
@@ -69,4 +71,5 @@ Highcharts.chart('container', {
     },
 });
 </script>
+@endcan
 @endsection
