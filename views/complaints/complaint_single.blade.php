@@ -58,7 +58,7 @@ Complaint List
 	                        	</td>	
 	                        </tr>
 	                        <tr>
-	                        	<td >Time Ago </td>
+	                        	<td >Tracking Code </td>
 	                        	<td><span class="btn btn-primary btn-xl"> {{$data->c_tracking_no}}</span>
 	                        	</td>	
 	                        </tr>
