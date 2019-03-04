@@ -13,7 +13,7 @@
 Route::middleware('can:viewD')->group( function(){
 	Route::get('testingAPI', 'ComplaintController@index');
 });
-Route::get('/', 'ComplaintController@dashboard');
+Route::get('/', 'ComplaintController@dashboard')->name('Dashboard');
 //Route::get('testingAPI', 'ComplaintController@index');
 // Route::get('/', function () {
 //     return view('welcome');
@@ -77,3 +77,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('showlogs', 'ComplaintController@logshowactivity');
+
+
+
+// manage user
+Route::get('users', 'ProfileController@manage_users_show')->name('ManageUsers');
+Route::get('users/add', 'ProfileController@add_user')->name('AddUser');
+Route::post('users/store', 'ProfileController@store_user')->middleware('can:viewD')->name('UserStore');
+Route::get('users/edit/{id}', 'ProfileController@edit')->middleware('can:viewD')->name('UserEdit');
+Route::post('users/update', 'ProfileController@update')->middleware('can:viewD')->name('UserUpdate');
+Route::get('users/delete/{id}', 'ProfileController@delete')->middleware('can:viewD')->name('UserDelete');
+
+// android api goes here
+// i repeat, API goes here
+
+Route::get('api/complaints/list/{id}', 'ComplaintController@showByIdAPI' );
+Route::post('api/complaints/add', 'ComplaintController@store_complaintAPI' );
+Route::get('api/complaints/add1', 'ComplaintController@index' );
